@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat </title>
+  <link rel="stylesheet" href="/cdn/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <ul id="messages" class="my-4"></ul>
+    <form id="form" class="mb-4" action="">
+      <div class="input-group">
+        <input id="input" class="form-control" autocomplete="off" />
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">Yolla</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var messages = document.getElementById('messages');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit('chat message', input.value);
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', function (msg) {
+      var item = document.createElement('li');
+      item.textContent = msg.username + ': ' + msg.message;
+      messages.appendChild(item);
+    });
+  </script>  
+</body>
+</html>

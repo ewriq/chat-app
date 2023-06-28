@@ -1,0 +1,9 @@
+.container {
+background: #33abf0;
+border-radius: 2%;
+}
+#messages {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
